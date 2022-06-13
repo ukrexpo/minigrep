@@ -6,17 +6,22 @@ fn main() {
         query: String,
         filename: String,
     }
-    
-    fn parse_config(args: &[String]) -> Config {
-        let query = args[1].clone();
-        let filename = args[2].clone();
-        Config {query, filename}
+
+    impl Config {
+        fn new(args: &[String]) -> Config {
+            if args.len() < 3 {
+                panic!("Expected 2 arguments");
+            }
+            let query = args[1].clone();
+            let filename = args[2].clone();
+            Config {query, filename}
+        }
     }
 
     let args: Vec<String> = env::args().collect();
     
 
-    let config = parse_config(&args);
+    let config = Config::new(&args);
     
     println!("Query: {}", config.query);
     println!("Filename: {}", config.filename);
