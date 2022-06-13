@@ -2,10 +2,17 @@ use std::env;
 use std::fs;
 
 fn main() {
+    fn parse_config(args: &[String]) -> (&str, &str) {
+        let query = &args[1];
+        let filename = &args[2];
+        (query, filename)
+    }
+
     let args: Vec<String> = env::args().collect();
-    let query = &args[1];
-    let filename = &args[2];
     // println!("{:?}", args);
+
+    let (query, filename) = parse_config(&args);
+    
     println!("Query: {}", query);
     println!("Filename: {}", filename);
 
