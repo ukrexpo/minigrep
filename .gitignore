@@ -11,3 +11,4 @@ Cargo.lock
 
 # Remove Visual Studio Code workspace
 workspace.code-workspace
+.vscode
