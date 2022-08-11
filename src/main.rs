@@ -1,6 +1,7 @@
 // Page 291
 
 use std::env;
+use std::error::Error;
 use std::fs;
 use std::process;
 
@@ -30,10 +31,14 @@ fn main() {
     println!("Query: {}", config.query);
     println!("Filename: {}", config.filename);
 
-    run(config);
+    if let Err(e) = run(config) {
+        println!("Run error: {}", e);
+        process::exit(1);
+    };
 }
 
-fn run(config: Config) {
-    let content = fs::read_to_string(config.filename).expect("Something goes wrong");
+fn run(config: Config) -> Result<(), Box<dyn Error>> {
+    let content = fs::read_to_string(config.filename)?;
     println!("Content: {}", content);
+    Ok(())
 }
