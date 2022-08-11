@@ -2,6 +2,7 @@
 
 use std::env;
 use std::fs;
+use std::process;
 
 fn main() {
     struct Config {
@@ -21,9 +22,10 @@ fn main() {
     }
 
     let args: Vec<String> = env::args().collect();
-    
-
-    let config = Config::new(&args).unwrap();
+    let config = Config::new(&args).unwrap_or_else(|err| {
+        println!("Parsing arguments error: {}", err);
+        process::exit(1);
+    });
     
     println!("Query: {}", config.query);
     println!("Filename: {}", config.filename);
